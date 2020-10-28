@@ -14,7 +14,7 @@ class Adapter(private val list: ArrayList<Users>): RecyclerView.Adapter<Adapter.
     private var context : Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        context = parent.context;
+        context = parent.context
         return Holder(LayoutInflater.from(parent.context).inflate(R.layout.list,parent,false))
     }
 

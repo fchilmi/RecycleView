@@ -4,16 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list.view.*
 
 
-class Adapter(private val list: ArrayList<Users>) :
-        RecyclerView.Adapter<Adapter.Holder>() {
-        var context : Context?= null
-        var clickListener : OnClickListener?= null
+class Adapter(private val list: ArrayList<Users>): RecyclerView.Adapter<Adapter.Holder>() {
+
+    private var context : Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        context = parent.context;
         return Holder(LayoutInflater.from(parent.context).inflate(R.layout.list,parent,false))
     }
 
@@ -21,24 +22,13 @@ class Adapter(private val list: ArrayList<Users>) :
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.view.lbList.text = list.get(position).name
-        holder.view.halo.setText("Halo")
-        holder.view.setOnClickListener({v ->
-            clickListener?.onClick(position)})
-    }
-
-    fun setOnClickListener(listener: (Int) ->
-    Unit){
-        this.clickListener = object:
-                OnClickListener {
-            override fun onClick(position: Int) {
-                listener(position)
-            }
+        holder.view.halo.text = list.get(position).halo
+        holder.view.setOnClickListener {
+            Toast.makeText(context,list[position].halo + list[position].name,
+            Toast.LENGTH_SHORT).show()
         }
     }
 
     class Holder(val view: View) :
             RecyclerView.ViewHolder(view)
-    interface OnClickListener {
-        fun onClick(position: Int)
-    }
     }
